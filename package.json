@@ -1,0 +1,32 @@
+{
+  "name": "prismatests",
+  "version": "0.0.1",
+  "description": "Practicing making Prisma schemas and migrations.",
+  "main": "app.js",
+  "scripts": {
+    "dev": "nodemon app.js",
+    "start": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DaveLampton/PrismaTests.git"
+  },
+  "keywords": [
+    "Prisma"
+  ],
+  "author": "https://github.com/DaveLampton",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/DaveLampton/PrismaTests/issues"
+  },
+  "homepage": "https://github.com/DaveLampton/PrismaTests#readme",
+  "dependencies": {
+    "@prisma/client": "^2.12.1",
+    "express": "^4.17.1",
+    "express-validator": "^6.7.0"
+  },
+  "devDependencies": {
+    "@prisma/cli": "^2.12.1",
+    "nodemon": "^2.0.6"
+  }
+}

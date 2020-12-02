@@ -1,0 +1,93 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+datasource db {
+  provider = "postgresql"
+  url      = env("PRISMATESTS_DB_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id            Int         @id @default(autoincrement())
+  name          String
+  email         String      @unique
+  password      String
+  role          UserRole    @default(USER)
+  assertions    Assertion[]
+  arguments     Argument[]
+  ratings       Rating[]
+  represents    Source[]
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+}
+
+model Rating {
+  id            Int         @id @default(autoincrement())
+  user          User        @relation(fields: [userId], references: [id])
+  userId        Int
+  argument      Argument    @relation(fields: [argumentId], references: [id])
+  argumentId    Int
+  rating        Boolean
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+
+  @@unique([userId, argumentId])
+}
+
+model Argument {
+  id            Int         @id @default(autoincrement())
+  assertion     Assertion   @relation(fields: [assertionId], references: [id])
+  assertionId   Int
+  text          String
+  contributor   User        @relation(fields: [userId], references: [id])
+  userId        Int
+  source        Source      @relation(fields: [sourceId], references: [id])
+  sourceId      Int
+  score         Int         @default(50)
+  ratings       Rating[]
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+}
+
+model Source {
+  id              Int       @id @default(autoincrement())
+  domain          String    @unique
+  score           Int       @default(50)
+  representatives User[]
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+}
+
+model Representative {
+  id            Int         @id @default(autoincrement())
+  source        Source      @relation(fields: [sourceId], references: [id])
+  sourceId      Int
+  user          User        @relation(fields: [userId], references: [id])
+  userId        Int
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+
+  @@unique([userId, sourceId])
+}
+
+model Assertion {
+  id            Int         @id @default(autoincrement())
+  text          String
+  contributor   User        @relation(fields: [userId], references: [id])
+  userId        Int
+  source        Source      @relation(fields: [sourceId], references: [id])
+  sourceId      Int
+  score         Int         @default(50)
+  arguments     Argument[]
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+}
+
+enum UserRole {
+  SUPERADMIN
+  ADMIN
+  USER
+}

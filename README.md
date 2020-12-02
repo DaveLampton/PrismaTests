@@ -1,2 +1,3 @@
 # PrismaTests
-Practicing making Prisma schemas.
+
+Practicing making Prisma schemas and migrations.
