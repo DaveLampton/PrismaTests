@@ -1,6 +1,6 @@
 INSERT INTO public."User"
 ("name", email, "password", "role", "createdAt", "updatedAt")
-VALUES('Dave Lampton', 'dave.lampton@gmail.com', 'galaga', 'SUPERADMIN'::"UserRole", CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+VALUES('Dave Lampton', 'dave@example.com', 'galaga', 'SUPERADMIN'::"UserRole", CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT INTO public."User"
 ("name", email, "password", "role", "createdAt", "updatedAt")
