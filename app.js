@@ -23,7 +23,7 @@ app.post(
       .isLength({ min: 6 })
       .withMessage("Password must be at least 6 characters"),
     body("role")
-      .isIn(["SUPERADMIN", "ADMIN", "USER"])
+      .isIn(["SUPERADMIN", "ADMIN", "USER", undefined])
       .withMessage(`Role must be one of 'USER', 'ADMIN', 'SUPERADMIN'`),
   ],
   async (req, res) => {
@@ -40,7 +40,7 @@ app.post(
       return res.json(user);
     } catch (err) {
       console.error(err);
-      return res.status(500).json({ error: "500 Server Error" });
+      return res.status(500).json({ error: "Server Error" });
     }
   }
 );
