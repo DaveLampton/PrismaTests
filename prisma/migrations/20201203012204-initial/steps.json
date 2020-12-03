@@ -89,8 +89,8 @@
     {
       "tag": "CreateField",
       "model": "Argument",
-      "field": "text",
-      "type": "String",
+      "field": "sourceId",
+      "type": "Int",
       "arity": "Required"
     },
     {
@@ -103,8 +103,8 @@
     {
       "tag": "CreateField",
       "model": "Argument",
-      "field": "sourceId",
-      "type": "Int",
+      "field": "text",
+      "type": "String",
       "arity": "Required"
     },
     {
@@ -284,7 +284,7 @@
     {
       "tag": "CreateField",
       "model": "Argument",
-      "field": "user",
+      "field": "contributor",
       "type": "User",
       "arity": "Required"
     },
@@ -294,7 +294,7 @@
         "path": {
           "tag": "Field",
           "model": "Argument",
-          "field": "user"
+          "field": "contributor"
         },
         "directive": "relation"
       }
@@ -306,7 +306,7 @@
         "path": {
           "tag": "Field",
           "model": "Argument",
-          "field": "user"
+          "field": "contributor"
         },
         "directive": "relation"
       },
@@ -320,7 +320,7 @@
         "path": {
           "tag": "Field",
           "model": "Argument",
-          "field": "user"
+          "field": "contributor"
         },
         "directive": "relation"
       },
@@ -544,49 +544,6 @@
     {
       "tag": "CreateField",
       "model": "Rating",
-      "field": "id",
-      "type": "Int",
-      "arity": "Required"
-    },
-    {
-      "tag": "CreateDirective",
-      "location": {
-        "path": {
-          "tag": "Field",
-          "model": "Rating",
-          "field": "id"
-        },
-        "directive": "id"
-      }
-    },
-    {
-      "tag": "CreateDirective",
-      "location": {
-        "path": {
-          "tag": "Field",
-          "model": "Rating",
-          "field": "id"
-        },
-        "directive": "default"
-      }
-    },
-    {
-      "tag": "CreateArgument",
-      "location": {
-        "tag": "Directive",
-        "path": {
-          "tag": "Field",
-          "model": "Rating",
-          "field": "id"
-        },
-        "directive": "default"
-      },
-      "argument": "",
-      "value": "autoincrement()"
-    },
-    {
-      "tag": "CreateField",
-      "model": "Rating",
       "field": "userId",
       "type": "Int",
       "arity": "Required"
@@ -752,52 +709,9 @@
       "location": {
         "path": {
           "tag": "Model",
-          "model": "Rating",
-          "arguments": [
-            {
-              "name": "",
-              "value": "[userId, argumentId]"
-            },
-            {
-              "name": "name",
-              "value": "\"Rating.userId_argumentId_unique\""
-            }
-          ]
-        },
-        "directive": "unique"
-      }
-    },
-    {
-      "tag": "CreateModel",
-      "model": "Representative"
-    },
-    {
-      "tag": "CreateField",
-      "model": "Representative",
-      "field": "id",
-      "type": "Int",
-      "arity": "Required"
-    },
-    {
-      "tag": "CreateDirective",
-      "location": {
-        "path": {
-          "tag": "Field",
-          "model": "Representative",
-          "field": "id"
+          "model": "Rating"
         },
         "directive": "id"
-      }
-    },
-    {
-      "tag": "CreateDirective",
-      "location": {
-        "path": {
-          "tag": "Field",
-          "model": "Representative",
-          "field": "id"
-        },
-        "directive": "default"
       }
     },
     {
@@ -805,14 +719,17 @@
       "location": {
         "tag": "Directive",
         "path": {
-          "tag": "Field",
-          "model": "Representative",
-          "field": "id"
+          "tag": "Model",
+          "model": "Rating"
         },
-        "directive": "default"
+        "directive": "id"
       },
       "argument": "",
-      "value": "autoincrement()"
+      "value": "[userId, argumentId]"
+    },
+    {
+      "tag": "CreateModel",
+      "model": "Representative"
     },
     {
       "tag": "CreateField",
@@ -859,24 +776,6 @@
       },
       "argument": "",
       "value": "now()"
-    },
-    {
-      "tag": "CreateField",
-      "model": "Representative",
-      "field": "updatedAt",
-      "type": "DateTime",
-      "arity": "Required"
-    },
-    {
-      "tag": "CreateDirective",
-      "location": {
-        "path": {
-          "tag": "Field",
-          "model": "Representative",
-          "field": "updatedAt"
-        },
-        "directive": "updatedAt"
-      }
     },
     {
       "tag": "CreateField",
@@ -975,20 +874,23 @@
       "location": {
         "path": {
           "tag": "Model",
-          "model": "Representative",
-          "arguments": [
-            {
-              "name": "",
-              "value": "[userId, sourceId]"
-            },
-            {
-              "name": "name",
-              "value": "\"Representative.userId_sourceId_unique\""
-            }
-          ]
+          "model": "Representative"
         },
-        "directive": "unique"
+        "directive": "id"
       }
+    },
+    {
+      "tag": "CreateArgument",
+      "location": {
+        "tag": "Directive",
+        "path": {
+          "tag": "Model",
+          "model": "Representative"
+        },
+        "directive": "id"
+      },
+      "argument": "",
+      "value": "[sourceId, userId]"
     },
     {
       "tag": "CreateModel",
@@ -1336,7 +1238,7 @@
     {
       "tag": "CreateField",
       "model": "User",
-      "field": "representatives",
+      "field": "represents",
       "type": "Representative",
       "arity": "List"
     }
