@@ -12,8 +12,9 @@ model Argument {
   assertionId Int
   sourceId    Int
   userId      Int
+  side        Boolean
+  score       Float     @default(50.0)
   text        String
-  score       Int       @default(50)
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
   assertion   Assertion @relation(fields: [assertionId], references: [id])
@@ -27,7 +28,7 @@ model Assertion {
   text      String
   userId    Int
   sourceId  Int
-  score     Int        @default(50)
+  score     Float      @default(50.0)
   createdAt DateTime   @default(now())
   updatedAt DateTime   @updatedAt
   source    Source     @relation(fields: [sourceId], references: [id])
@@ -59,7 +60,7 @@ model Representative {
 model Source {
   id              Int               @id @default(autoincrement())
   domain          String            @unique
-  score           Int               @default(50)
+  score           Float             @default(50.0)
   createdAt       DateTime          @default(now())
   updatedAt       DateTime          @updatedAt
   arguments       Argument[]

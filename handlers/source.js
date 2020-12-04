@@ -3,22 +3,16 @@ const { body, validationResult } = require("express-validator");
 
 const prisma = new PrismaClient();
 
-exports.userValidator = () => {
+exports.sourceValidator = () => {
   return [
-    body("email")
+    body("domain")
       .isLength({ min: 1 })
-      .withMessage("Email must not be blank")
-      .isEmail()
-      .withMessage("Must be a valid email address"),
-    body("name").isLength({ min: 1 }).withMessage("Name must not be blank"),
-    body("password")
-      .isLength({ min: 1 })
-      .withMessage("Password must not be blank")
-      .isLength({ min: 6 })
-      .withMessage("Password must be at least 6 characters"),
-    body("role")
-      .isIn(["SUPERADMIN", "ADMIN", "USER", undefined])
-      .withMessage(`Role must be one of 'USER', 'ADMIN', 'SUPERADMIN'`),
+      .withMessage("Domain must not be blank")
+      .isFQDN()
+      .withMessage("Must be a domain name"),
+    body("score")
+      .isFloat({ gt: 0, lt: 100 })
+      .withMessage("Score must be greater than 0 and less than 100"),
   ];
 };
 
@@ -28,20 +22,20 @@ exports.create = async (req, res) => {
     if (!errors.isEmpty()) {
       return res.status(400).json(errors.mapped());
     }
-    const { name, email, role, password } = req.body;
-    const existingUser = await prisma.user.findUnique({
-      where: { email },
+    const { domain, score } = req.body;
+    const existingSource = await prisma.source.findUnique({
+      where: { domain },
     });
-    if (existingUser) {
+    if (existingSource) {
       return res.status(400).json({
         Error:
-          "An account with email " + existingUser.email + " already exists",
+          "A source with domain " + existingSource.domain + " already exists",
       });
     }
-    const user = await prisma.user.create({
-      data: { name, email, role, password },
+    const source = await prisma.source.create({
+      data: { domain, score },
     });
-    return res.json(user);
+    return res.json(source);
   } catch (err) {
     console.error(err);
     return res.status(500).json("500 Server error");
@@ -50,8 +44,8 @@ exports.create = async (req, res) => {
 
 exports.getAll = async (req, res) => {
   try {
-    const users = await prisma.user.findMany();
-    return res.json(users);
+    const sources = await prisma.source.findMany();
+    return res.json(sources);
   } catch (err) {
     console.error(err);
     return res.status(500).json({ error: "Server Error" });
@@ -60,11 +54,11 @@ exports.getAll = async (req, res) => {
 
 exports.findOne = async (req, res) => {
   try {
-    const user = await prisma.user.findUnique({
+    const source = await prisma.source.findUnique({
       where: { id: Number(req.params.id) },
     });
-    if (!user) return res.status(404).json({ error: "User ID Not Found" });
-    return res.json(user);
+    if (!source) return res.status(404).json({ error: "Source ID Not Found" });
+    return res.json(source);
   } catch (err) {
     console.error(err);
     return res.status(500).json({ error: "Server Error" });
@@ -77,16 +71,16 @@ exports.update = async (req, res) => {
     if (!errors.isEmpty()) {
       return res.status(400).json(errors.mapped());
     }
-    let user = await prisma.user.findUnique({
+    let source = await prisma.source.findUnique({
       where: { id: Number(req.params.id) },
     });
-    if (!user) return res.status(404).json({ error: "User ID Not Found" });
-    const { name, email, role, password } = req.body;
-    user = await prisma.user.update({
+    if (!source) return res.status(404).json({ error: "Source ID Not Found" });
+    const { domain, score } = req.body;
+    source = await prisma.source.update({
       where: { id: Number(req.params.id) },
-      data: { name, email, role, password },
+      data: { domain, score },
     });
-    return res.json(user);
+    return res.json(source);
   } catch (err) {
     console.error(err);
     return res.status(500).json({ error: "Server Error" });
@@ -95,15 +89,15 @@ exports.update = async (req, res) => {
 
 exports.delete = async (req, res) => {
   try {
-    let user = await prisma.user.findUnique({
+    let source = await prisma.source.findUnique({
       where: { id: Number(req.params.id) },
     });
-    if (!user) return res.status(404).json({ error: "User ID Not Found" });
+    if (!source) return res.status(404).json({ error: "Source ID Not Found" });
     const { name, email, role, password } = req.body;
-    user = await prisma.user.delete({
+    source = await prisma.source.delete({
       where: { id: Number(req.params.id) },
     });
-    return res.json(user);
+    return res.json(source);
   } catch (err) {
     console.error(err);
     return res.status(500).json({ error: "Server Error" });

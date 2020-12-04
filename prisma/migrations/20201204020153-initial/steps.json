@@ -103,6 +103,13 @@
     {
       "tag": "CreateField",
       "model": "Argument",
+      "field": "side",
+      "type": "Boolean",
+      "arity": "Required"
+    },
+    {
+      "tag": "CreateField",
+      "model": "Argument",
       "field": "text",
       "type": "String",
       "arity": "Required"
@@ -111,7 +118,7 @@
       "tag": "CreateField",
       "model": "Argument",
       "field": "score",
-      "type": "Int",
+      "type": "Float",
       "arity": "Required"
     },
     {
@@ -137,7 +144,7 @@
         "directive": "default"
       },
       "argument": "",
-      "value": "50"
+      "value": "50.0"
     },
     {
       "tag": "CreateField",
@@ -406,7 +413,7 @@
       "tag": "CreateField",
       "model": "Assertion",
       "field": "score",
-      "type": "Int",
+      "type": "Float",
       "arity": "Required"
     },
     {
@@ -432,7 +439,7 @@
         "directive": "default"
       },
       "argument": "",
-      "value": "50"
+      "value": "50.0"
     },
     {
       "tag": "CreateField",
@@ -961,7 +968,7 @@
       "tag": "CreateField",
       "model": "Source",
       "field": "score",
-      "type": "Int",
+      "type": "Float",
       "arity": "Required"
     },
     {
@@ -987,7 +994,7 @@
         "directive": "default"
       },
       "argument": "",
-      "value": "50"
+      "value": "50.0"
     },
     {
       "tag": "CreateField",
