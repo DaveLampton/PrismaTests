@@ -24,15 +24,16 @@ model Argument {
 }
 
 model Assertion {
-  id        Int        @id @default(autoincrement())
-  text      String
-  userId    Int
-  sourceId  Int
-  score     Float      @default(50.0)
-  createdAt DateTime   @default(now())
-  updatedAt DateTime   @updatedAt
-  source    Source     @relation(fields: [sourceId], references: [id])
-  arguments Argument[]
+  id              Int             @id @default(autoincrement())
+  userId          Int
+  sourceId        Int
+  score           Float           @default(50.0)
+  text            String
+  createdAt       DateTime        @default(now())
+  updatedAt       DateTime        @updatedAt
+  representative  User            @relation(fields: [userId], references: [id])
+  source          Source          @relation(fields: [sourceId], references: [id])
+  arguments       Argument[]
 }
 
 model Rating {
@@ -47,15 +48,16 @@ model Rating {
   @@id([userId, argumentId])
 }
 
-model Representative {
-  sourceId  Int
-  userId    Int
-  createdAt DateTime  @default(now())
-  source    Source    @relation(fields: [sourceId], references: [id])
-  user      User      @relation(fields: [userId], references: [id])
+// model Representative {
+//   id        Int       @id @default(autoincrement())
+//   userId    Int
+//   sourceId  Int
+//   createdAt DateTime  @default(now())
+//   source    Source    @relation(fields: [sourceId], references: [id])
+//   user      User      @relation(fields: [userId], references: [id])
 
-  @@id([sourceId, userId])
-}
+//   @@unique([sourceId, userId])
+// }
 
 model Source {
   id              Int               @id @default(autoincrement())
@@ -65,20 +67,21 @@ model Source {
   updatedAt       DateTime          @updatedAt
   arguments       Argument[]
   assertions      Assertion[]
-  representatives Representative[]
+  users           User[]
 }
 
 model User {
   id              Int               @id @default(autoincrement())
   name            String
   email           String            @unique
-  password        String
+  passwordHash    String
   role            UserRole          @default(USER)
   createdAt       DateTime          @default(now())
   updatedAt       DateTime          @updatedAt
+  assertions      Assertion[]
   arguments       Argument[]
   ratings         Rating[]
-  represents      Representative[]
+  sources         Source[]
 }
 
 enum UserRole {

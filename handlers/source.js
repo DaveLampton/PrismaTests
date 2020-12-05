@@ -93,11 +93,32 @@ exports.delete = async (req, res) => {
       where: { id: Number(req.params.id) },
     });
     if (!source) return res.status(404).json({ error: "Source ID Not Found" });
-    const { name, email, role, password } = req.body;
+    const { name, email, role, passwordHash } = req.body;
     source = await prisma.source.delete({
       where: { id: Number(req.params.id) },
     });
     return res.json(source);
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ error: "Server Error" });
+  }
+};
+
+exports.users = async (req, res) => {
+  try {
+    const users = await prisma.source
+      .findUnique({
+        where: { id: Number(req.params.id) },
+      })
+      .users();
+    if (!users) {
+      const source = await prisma.source.findUnique({
+        where: { id: Number(req.params.id) },
+      });
+      if (!source)
+        return res.status(404).json({ error: "Source ID Not Found" });
+    }
+    return res.json(users);
   } catch (err) {
     console.error(err);
     return res.status(500).json({ error: "Server Error" });

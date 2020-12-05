@@ -11,7 +11,7 @@ exports.userValidator = () => {
       .isEmail()
       .withMessage("Must be a valid email address"),
     body("name").isLength({ min: 1 }).withMessage("Name must not be blank"),
-    body("password")
+    body("passwordHash")
       .isLength({ min: 1 })
       .withMessage("Password must not be blank")
       .isLength({ min: 6 })
@@ -28,7 +28,7 @@ exports.create = async (req, res) => {
     if (!errors.isEmpty()) {
       return res.status(400).json(errors.mapped());
     }
-    const { name, email, role, password } = req.body;
+    const { name, email, role, passwordHash } = req.body;
     const existingUser = await prisma.user.findUnique({
       where: { email },
     });
@@ -39,7 +39,7 @@ exports.create = async (req, res) => {
       });
     }
     const user = await prisma.user.create({
-      data: { name, email, role, password },
+      data: { name, email, role, passwordHash },
     });
     return res.json(user);
   } catch (err) {
@@ -81,10 +81,10 @@ exports.update = async (req, res) => {
       where: { id: Number(req.params.id) },
     });
     if (!user) return res.status(404).json({ error: "User ID Not Found" });
-    const { name, email, role, password } = req.body;
+    const { name, email, role, passwordHash } = req.body;
     user = await prisma.user.update({
       where: { id: Number(req.params.id) },
-      data: { name, email, role, password },
+      data: { name, email, role, passwordHash },
     });
     return res.json(user);
   } catch (err) {
@@ -99,7 +99,7 @@ exports.delete = async (req, res) => {
       where: { id: Number(req.params.id) },
     });
     if (!user) return res.status(404).json({ error: "User ID Not Found" });
-    const { name, email, role, password } = req.body;
+    const { name, email, role, passwordHash } = req.body;
     user = await prisma.user.delete({
       where: { id: Number(req.params.id) },
     });

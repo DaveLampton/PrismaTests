@@ -16,4 +16,7 @@ module.exports = (app) => {
 
   // Delete a Source
   app.delete("/v1/source/:id", source.delete);
+
+  // Users for Source
+  app.get("/v1/source/:id/users", source.users);
 };

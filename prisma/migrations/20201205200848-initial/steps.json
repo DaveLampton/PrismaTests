@@ -110,13 +110,6 @@
     {
       "tag": "CreateField",
       "model": "Argument",
-      "field": "text",
-      "type": "String",
-      "arity": "Required"
-    },
-    {
-      "tag": "CreateField",
-      "model": "Argument",
       "field": "score",
       "type": "Float",
       "arity": "Required"
@@ -145,6 +138,13 @@
       },
       "argument": "",
       "value": "50.0"
+    },
+    {
+      "tag": "CreateField",
+      "model": "Argument",
+      "field": "text",
+      "type": "String",
+      "arity": "Required"
     },
     {
       "tag": "CreateField",
@@ -391,13 +391,6 @@
     {
       "tag": "CreateField",
       "model": "Assertion",
-      "field": "text",
-      "type": "String",
-      "arity": "Required"
-    },
-    {
-      "tag": "CreateField",
-      "model": "Assertion",
       "field": "userId",
       "type": "Int",
       "arity": "Required"
@@ -440,6 +433,13 @@
       },
       "argument": "",
       "value": "50.0"
+    },
+    {
+      "tag": "CreateField",
+      "model": "Assertion",
+      "field": "text",
+      "type": "String",
+      "arity": "Required"
     },
     {
       "tag": "CreateField",
@@ -490,6 +490,52 @@
         },
         "directive": "updatedAt"
       }
+    },
+    {
+      "tag": "CreateField",
+      "model": "Assertion",
+      "field": "representative",
+      "type": "User",
+      "arity": "Required"
+    },
+    {
+      "tag": "CreateDirective",
+      "location": {
+        "path": {
+          "tag": "Field",
+          "model": "Assertion",
+          "field": "representative"
+        },
+        "directive": "relation"
+      }
+    },
+    {
+      "tag": "CreateArgument",
+      "location": {
+        "tag": "Directive",
+        "path": {
+          "tag": "Field",
+          "model": "Assertion",
+          "field": "representative"
+        },
+        "directive": "relation"
+      },
+      "argument": "fields",
+      "value": "[userId]"
+    },
+    {
+      "tag": "CreateArgument",
+      "location": {
+        "tag": "Directive",
+        "path": {
+          "tag": "Field",
+          "model": "Assertion",
+          "field": "representative"
+        },
+        "directive": "relation"
+      },
+      "argument": "references",
+      "value": "[id]"
     },
     {
       "tag": "CreateField",
@@ -736,171 +782,6 @@
     },
     {
       "tag": "CreateModel",
-      "model": "Representative"
-    },
-    {
-      "tag": "CreateField",
-      "model": "Representative",
-      "field": "sourceId",
-      "type": "Int",
-      "arity": "Required"
-    },
-    {
-      "tag": "CreateField",
-      "model": "Representative",
-      "field": "userId",
-      "type": "Int",
-      "arity": "Required"
-    },
-    {
-      "tag": "CreateField",
-      "model": "Representative",
-      "field": "createdAt",
-      "type": "DateTime",
-      "arity": "Required"
-    },
-    {
-      "tag": "CreateDirective",
-      "location": {
-        "path": {
-          "tag": "Field",
-          "model": "Representative",
-          "field": "createdAt"
-        },
-        "directive": "default"
-      }
-    },
-    {
-      "tag": "CreateArgument",
-      "location": {
-        "tag": "Directive",
-        "path": {
-          "tag": "Field",
-          "model": "Representative",
-          "field": "createdAt"
-        },
-        "directive": "default"
-      },
-      "argument": "",
-      "value": "now()"
-    },
-    {
-      "tag": "CreateField",
-      "model": "Representative",
-      "field": "source",
-      "type": "Source",
-      "arity": "Required"
-    },
-    {
-      "tag": "CreateDirective",
-      "location": {
-        "path": {
-          "tag": "Field",
-          "model": "Representative",
-          "field": "source"
-        },
-        "directive": "relation"
-      }
-    },
-    {
-      "tag": "CreateArgument",
-      "location": {
-        "tag": "Directive",
-        "path": {
-          "tag": "Field",
-          "model": "Representative",
-          "field": "source"
-        },
-        "directive": "relation"
-      },
-      "argument": "fields",
-      "value": "[sourceId]"
-    },
-    {
-      "tag": "CreateArgument",
-      "location": {
-        "tag": "Directive",
-        "path": {
-          "tag": "Field",
-          "model": "Representative",
-          "field": "source"
-        },
-        "directive": "relation"
-      },
-      "argument": "references",
-      "value": "[id]"
-    },
-    {
-      "tag": "CreateField",
-      "model": "Representative",
-      "field": "user",
-      "type": "User",
-      "arity": "Required"
-    },
-    {
-      "tag": "CreateDirective",
-      "location": {
-        "path": {
-          "tag": "Field",
-          "model": "Representative",
-          "field": "user"
-        },
-        "directive": "relation"
-      }
-    },
-    {
-      "tag": "CreateArgument",
-      "location": {
-        "tag": "Directive",
-        "path": {
-          "tag": "Field",
-          "model": "Representative",
-          "field": "user"
-        },
-        "directive": "relation"
-      },
-      "argument": "fields",
-      "value": "[userId]"
-    },
-    {
-      "tag": "CreateArgument",
-      "location": {
-        "tag": "Directive",
-        "path": {
-          "tag": "Field",
-          "model": "Representative",
-          "field": "user"
-        },
-        "directive": "relation"
-      },
-      "argument": "references",
-      "value": "[id]"
-    },
-    {
-      "tag": "CreateDirective",
-      "location": {
-        "path": {
-          "tag": "Model",
-          "model": "Representative"
-        },
-        "directive": "id"
-      }
-    },
-    {
-      "tag": "CreateArgument",
-      "location": {
-        "tag": "Directive",
-        "path": {
-          "tag": "Model",
-          "model": "Representative"
-        },
-        "directive": "id"
-      },
-      "argument": "",
-      "value": "[sourceId, userId]"
-    },
-    {
-      "tag": "CreateModel",
       "model": "Source"
     },
     {
@@ -1063,8 +944,8 @@
     {
       "tag": "CreateField",
       "model": "Source",
-      "field": "representatives",
-      "type": "Representative",
+      "field": "users",
+      "type": "User",
       "arity": "List"
     },
     {
@@ -1142,7 +1023,7 @@
     {
       "tag": "CreateField",
       "model": "User",
-      "field": "password",
+      "field": "passwordHash",
       "type": "String",
       "arity": "Required"
     },
@@ -1231,6 +1112,13 @@
     {
       "tag": "CreateField",
       "model": "User",
+      "field": "assertions",
+      "type": "Assertion",
+      "arity": "List"
+    },
+    {
+      "tag": "CreateField",
+      "model": "User",
       "field": "arguments",
       "type": "Argument",
       "arity": "List"
@@ -1245,8 +1133,8 @@
     {
       "tag": "CreateField",
       "model": "User",
-      "field": "represents",
-      "type": "Representative",
+      "field": "sources",
+      "type": "Source",
       "arity": "List"
     }
   ]
