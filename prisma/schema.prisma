@@ -49,17 +49,6 @@ model Rating {
   @@id([userId, argumentId])
 }
 
-// model Representative {
-//   id        Int       @id @default(autoincrement())
-//   userId    Int
-//   sourceId  Int
-//   createdAt DateTime  @default(now())
-//   source    Source    @relation(fields: [sourceId], references: [id])
-//   user      User      @relation(fields: [userId], references: [id])
-
-//   @@unique([sourceId, userId])
-// }
-
 model Source {
   id              Int               @id @default(autoincrement())
   domain          String            @unique

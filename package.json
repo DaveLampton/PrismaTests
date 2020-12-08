@@ -21,12 +21,12 @@
   },
   "homepage": "https://github.com/DaveLampton/PrismaTests#readme",
   "dependencies": {
-    "@prisma/client": "^2.12.1",
+    "@prisma/client": "^2.13.0",
     "express": "^4.17.1",
     "express-validator": "^6.7.0"
   },
   "devDependencies": {
-    "@prisma/cli": "^2.12.1",
+    "@prisma/cli": "^2.13.0",
     "nodemon": "^2.0.6"
   }
 }
