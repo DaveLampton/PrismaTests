@@ -23,6 +23,7 @@ exports.findOne = async (req, res) => {
   }
 };
 
+// get the arguments for an assertion
 exports.arguments = async (req, res) => {
   try {
     const arguments = await prisma.assertion

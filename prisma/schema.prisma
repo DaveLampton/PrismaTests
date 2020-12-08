@@ -25,6 +25,7 @@ model Argument {
 
 model Assertion {
   id              Int             @id @default(autoincrement())
+  urlToken        String          @unique
   userId          Int
   sourceId        Int
   score           Float           @default(50.0)

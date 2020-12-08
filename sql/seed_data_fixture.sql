@@ -67,20 +67,20 @@ INSERT INTO public."_SourceToUser"
 VALUES(3, 4);
 
 INSERT INTO public."Assertion"
-("text", "userId", "sourceId", score, "createdAt", "updatedAt")
-VALUES('Joe Biden is the President-elect of the USA.', 2, 1, 98.2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+("userId", "urlToken", "sourceId", score, "text", "createdAt", "updatedAt")
+VALUES(2, 'j3d8m', 1, 98.2, 'Joe Biden is the President-elect of the USA.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT INTO public."Assertion"
-("text", "userId", "sourceId", score, "createdAt", "updatedAt")
-VALUES('Kamala Harris is the Vice President-elect of the USA.', 3, 2, 97.8, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+("userId", "urlToken", "sourceId", score, "text", "createdAt", "updatedAt")
+VALUES(3, '9df3p', 2, 97.8, 'Kamala Harris is the Vice President-elect of the USA.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT INTO public."Assertion"
-("text", "userId", "sourceId", score, "createdAt", "updatedAt")
-VALUES('The prevalent color of the sky is blue.', 3, 2, 86.9, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+("userId", "urlToken", "sourceId", score, "text", "createdAt", "updatedAt")
+VALUES(3, 'q4gc0', 2, 86.9, 'The prevalent color of the sky is blue.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT INTO public."Argument"
 ("assertionId", side, "userId", "sourceId", score, "text", "createdAt", "updatedAt")
-VALUES(1, true, 2, 1, 89.4, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Sed elementum tempus egestas sed sed risus pretium quam vulputate.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+VALUES(1, true, 2, 1, 89.4, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Sed elementum tempus egestas sed risus pretium quam vulputate.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT INTO public."Argument"
 ("assertionId", side, "userId", "sourceId", score, "text", "createdAt", "updatedAt")

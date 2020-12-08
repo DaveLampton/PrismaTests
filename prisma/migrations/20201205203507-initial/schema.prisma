@@ -7,6 +7,20 @@ datasource db {
   url = "***"
 }
 
+model Assertion {
+  id              Int             @id @default(autoincrement())
+  urlToken        String          @unique
+  userId          Int
+  sourceId        Int
+  score           Float           @default(50.0)
+  text            String
+  createdAt       DateTime        @default(now())
+  updatedAt       DateTime        @updatedAt
+  representative  User            @relation(fields: [userId], references: [id])
+  source          Source          @relation(fields: [sourceId], references: [id])
+  arguments       Argument[]
+}
+
 model Argument {
   id          Int       @id @default(autoincrement())
   assertionId Int
@@ -21,19 +35,6 @@ model Argument {
   source      Source    @relation(fields: [sourceId], references: [id])
   contributor User      @relation(fields: [userId], references: [id])
   ratings     Rating[]
-}
-
-model Assertion {
-  id              Int             @id @default(autoincrement())
-  userId          Int
-  sourceId        Int
-  score           Float           @default(50.0)
-  text            String
-  createdAt       DateTime        @default(now())
-  updatedAt       DateTime        @updatedAt
-  representative  User            @relation(fields: [userId], references: [id])
-  source          Source          @relation(fields: [sourceId], references: [id])
-  arguments       Argument[]
 }
 
 model Rating {
